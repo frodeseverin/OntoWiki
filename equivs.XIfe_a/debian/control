@@ -1,0 +1,15 @@
+Source: ontowiki-zendlib-framework-php-Debian
+Section: web
+Priority: optional
+Maintainer: Frode Severin Hatlevik <frodesh@bergenbibliotek.no>
+Build-Depends: debhelper (>= 4)
+Standards-Version: 3.6.2
+
+Package: ontowiki-zendlib-framework-php-Debian
+Architecture: all
+Depends: zendframework,php5-suhosin
+Provides: zendlib-framework-php
+Description: Dummy package to alleviate Ubuntu package names
+ This is a Debian specific dependency package to alleviate negligence on the part of LOD2 maintainers to cater for Debian Package names and dependenciec, and not just Ubuntu package names.
+ .
+ If this approach works, I will file a bug.

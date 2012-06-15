@@ -1,0 +1,52 @@
+I am trying to get the .deb repository described in http://stack.lod2.eu/lod2repository_current_all.deb to work with my fresh Debian Squeeze system. This repo seems to be targeted on Ubuntu. There are a few discrepancies regarding package names and such, hence this equivs package.
+This README is a log of my efforts.
+
+I shall possibly move the depends to pre-depends or post-depends to achieve a smoother setup?
+
+First off, I created this equivs package to depend on the "zendframework" Debian package, rather than the zendlib-framework-php Ubuntu package. 
+
+I should change the name of my equivs-package to ontowiki-zendlib-framework-php-Debian, and add 'Provides: zendlib-framework-php', in order to not foul things up, i guess.
+
+
+MySQL says something about Plugin 'FEDERATED', whatever this means:
+Configuring mysql-server-5.1 (5.1.61-0+squeeze1) ...
+Stopping MySQL database server: mysqld.
+120614 15:03:52 [Note] Plugin 'FEDERATED' is disabled.
+120614 15:03:52  InnoDB: Initializing buffer pool, size = 8.0M
+120614 15:03:52  InnoDB: Completed initialization of buffer pool
+120614 15:03:52  InnoDB: Started; log sequence number 0 44233
+120614 15:03:52  InnoDB: Starting shutdown...
+120614 15:03:57  InnoDB: Shutdown completed; log sequence number 0 44233
+Starting MySQL database server: mysqld.
+
+I have to look into that.
+
+
+On my resh Debian Squeeze system Ontowiki drags in Apache2.
+Apache2 complains on first startup:
+Starting web server: apache2apache2: Syntax error on line 227 of /etc/apache2/apache2.conf: Could not open configuration file /etc/apache2/conf.d/ontowiki: No such file or directory
+Action 'start' failed.
+The Apache error log may have more information.
+ failed!
+invoke-rc.d: initscript apache2, action "start" failed
+
+It is not nice to litter the Apache2 log file or apt log if it is not necessary. Possibly modifying the Apache2 config file to include reference to /etc/apache2/conf.d/ontowiki could be moved into postinst-configure of ontowiki-common.
+
+
+The package 'owlcli' seems to have an optional dependency from PEAR outside Debian or Ubuntu repos: "pear/Console_Color2" or "pear/Console_Color2". I'll have to look into this.
+The short solution to this will be to have some way of executing 
+ php pyrus.phar install pear/Console_Color2
+in the owlcli configuration scripts, perhaps by using the suggested solution:
+WARNING: "pear/Console_Color" is deprecated in favor of "pear/Console_Color2"
+Did not download optional dependencies: pear/Console_Color, use --alldeps to download automatically
+pear/Console_Table can optionally use package "pear/Console_Color" (version >= 0.0.4)
+
+Suppose it is not really needed for the current use of "pear/Console_Table" in Ontowiki. Also, this choice might be due to the _alpha_ version tag on "pear/Console_Color2":
+Release date: 2012-03-14 23:14 UTC
+Release state: alpha
+Better to go with "pear/Console_Color", then.
+
+owcli seems also to need suhosin.so provided by Debian package "php5-suhosin". Added to dependancy list of equivs-package.
+
+New try with version 1.01
+;)Frode

@@ -1,0 +1,30 @@
+### Commented entries have reasonable defaults.
+### Uncomment to edit them.
+Section: web
+Priority: optional
+# Homepage: <enter URL here; no default>
+Standards-Version: 3.6.2
+
+Package: ontowiki-libzend-framework-php-debian
+Version: 1.04
+Maintainer: Frode Severin Hatlevik <frodesh@gmail.com>
+# Pre-Depends: <comma-separated list of packages>
+Depends: zendframework,php5-suhosin,libapache2-mod-php5
+# Recommends: <comma-separated list of packages>
+# Suggests: <comma-separated list of packages>
+Provides: libzend-framework-php
+# Replaces: <comma-separated list of packages>
+# Architecture: all
+Copyright: Copying
+# Changelog: Changelog
+Readme: README.Debian
+Extra-Files: gpl-3.0.txt,Version-history
+# Files: <pair of space-separated paths; First is file to include, second is destination>
+#  <more pairs, if there's more than one file to include. Notice the starting space>
+Description: Dummy package to alleviate Ubuntu package names 
+ This is a Debian specific dependency package to alleviate negligence on the part of LOD2 maintainers to cater for Debian Package names and dependenciec, and not just Ubuntu package names.
+ .
+ If this approach works, I will file a bug. and a pull-request at GtiHub.
+ .
+ I have now made this work in Debian Squeeze. Only manual config issue is adding a correct AddHandler line to the apache config. This should be done upstream by including the required line in the "/etc/apache2/conf.d/ontowiki" configuration file as foolows:
+ AddHandler application/x-httpd-php5 .php .phtml

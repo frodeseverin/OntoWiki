@@ -1,0 +1,4 @@
+1.0: Tried a mere dependency on zendframework Debian package. Hopefully this is the correct package in Debian corresponding to libzend-framework-php.
+1.01: Added php5-suhosin as dependency, as PHP complained on not finding this on startup.
+	Changed name of package from libzend-framework-php to ontowiki-libzend-framework-php-Debian.
+	Included README.Debian, Copying, gpl-3.0.txt and this Version-history in package.

@@ -1,0 +1,46 @@
+Script started on to. 14. juni 2012 kl. 14.41 +0200
+]0;frodesh@frode: ~/equivsfrodesh@frode:~/equivs$ bg[Kequivs-control libzend-framework-php
+]0;frodesh@frode: ~/equivsfrodesh@frode:~/equivs$ vim libzend-framework-php 
+bash: vim: command not found
+]0;frodesh@frode: ~/equivsfrodesh@frode:~/equivs$ vi 
+libzend-framework-php  typescript             
+]0;frodesh@frode: ~/equivsfrodesh@frode:~/equivs$ vi libzend-framework-php 
+[?1049h[?1h=[1;37r[?12;25h[?12l[?25h[27m[m[H[2J[?25l[37;1H"libzend-framework-php" 27 lines, 1163 characters[1;1H### Commented entries have reasonable defaults.
+### Uncomment to edit them.
+Section: misc
+Priority: optional
+# Homepage: <enter URL here; no default>
+Standards-Version: 3.6.2
+
+Package: <package name; defaults to equivs-dummy>
+# Version: <enter version here; defaults to 1.0>
+# Maintainer: Your Name <yourname@example.com>
+# Pre-Depends: <comma-separated list of packages>
+# Depends: <comma-separated list of packages>
+# Recommends: <comma-separated list of packages>
+# Suggests: <comma-separated list of packages>
+# Provides: <comma-separated list of packages>
+# Replaces: <comma-separated list of packages>
+# Architecture: all
+# Copyright: <copyright file; defaults to GPL2>
+# Changelog: <changelog file; defaults to a generic changelog>
+# Readme: <README.Debian file; defaults to a generic one>
+# Extra-Files: <comma-separated list of additional files for the doc directory>
+# Files: <pair of space-separated paths; First is file to include, second is destination>
+#  <more pairs, if there's more than one file to include. Notice the starting space>
+Description: <short description; defaults to some wise words>
+ long description and info
+ .
+ second paragraph
+[1m[34m~                                                                                                                                                                                                                   [29;1H~                                                                                                                                                                                                                   [30;1H~                                                                                                                                                                                                                   [31;1H~                                                                                                                                                                                                                   [32;1H~                                                                                                                                                                                                                   [33;1H~                                                                                                                                                                                                                   [34;1H~                                                                                                                                                                                                                   [35;1H~                                                                                                                                                                                                                   [36;1H~                                                                                                                                                                                                                   [1;1H[?12l[?25h
+
+
+
+
+
+
+
+[?25l[m Version: <enter version here; defaults to 1.0>[9;48H[K[9;1H[?12l[?25h[?25lVersion: <enter version here; defaults to 1.0>[9;47H[K[9;1H[?12l[?25hVersio[8;7He: <[?25l<bzend-framework-phppackage name; defaults to equivs-dummy>[8;30H[?12l[?25h[?25l[8;36r[8;1H[L[1;37r[8;1HD[37;1H[K[8;2H[?12l[?25h[?25l[?12l[?25h[?25l[8;1H[K[8;1H[?12l[?25h[?25l[8;36r[8;1H[L[1;37r[8;1HA[?12l[?25h[?25l[8;36r[8;1H[L[1;37r[8;1HB[?12l[?25h[?25l[8;36r[8;1H[L[1;37r[8;1HB[?12l[?25h[?25lB[34m^Z[?12l[?25h[?25l[37;1H[m:[?12l[?25hq[?25l[1m[37m[41mE37: No write since last change (add ! to override)[8;2H[?12l[?25h[?25l[m[37;1H[K[37;1H:[?12l[?25hq![?25l[37;1H[K[37;1H[?1l>[?12l[?25h[?1049l]0;frodesh@frode: ~/equivsfrodesh@frode:~/equivs$ exit
+exit
+
+Script done on to. 14. juni 2012 kl. 14.44 +0200
