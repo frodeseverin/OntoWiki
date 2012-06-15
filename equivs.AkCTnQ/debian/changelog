@@ -1,2 +1,0 @@
-1.0: Tried a mere dependancy on zendframework Debian package. Hopefully this is the correct package in Debian corresponding to libzend-framework-php.
-1.01: Added php5-suhosin as dependency, as PHP complained on not finding this on startup.
