@@ -18,7 +18,7 @@ To install OntoWiki do the following:
 	# dpkg -i ontowiki-libzend-framework-php-debian_1.02_all.deb
   There will be errors. Then run
 	# aptitude --allow-new-installs install
-  I suppose, to install the dependancies.
+  I suppose, to install the dependencies.
 3: Install OntoWiki
 	aptitude install ontowiki-mysql
 
@@ -82,7 +82,7 @@ Release state: alpha
 Better to go with "pear/Console_Color", then. I'll leave this to de maintainers of OntoWiki
 
 # 2
-owcli seems also to need the file "/usr/lib/php5/20090626/suhosin.so", provided by the Debian package "php5-suhosin". Seemingly this package is in the dependancy tree of the Ubuntu packages.
+owcli seems also to need the file "/usr/lib/php5/20090626/suhosin.so", provided by the Debian package "php5-suhosin". Seemingly this package is in the dependency tree of the Ubuntu packages.
 Added 
 Depends: php5-suhosin
 to equivs-package.
