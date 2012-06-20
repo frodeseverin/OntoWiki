@@ -6,12 +6,13 @@ Priority: optional
 Standards-Version: 3.6.2
 
 Package: ontowiki-libzend-framework-php-debian
-Version: 1.04
+Version: 1.06
 Maintainer: Frode Severin Hatlevik <frodesh@gmail.com>
 # Pre-Depends: <comma-separated list of packages>
-Depends: zendframework,php5-suhosin,libapache2-mod-php5
+Depends: zendframework, php5-suhosin, apache2-mpm-worker | apache2-mpm-event | libapache2-mod-php5
 # Recommends: <comma-separated list of packages>
 # Suggests: <comma-separated list of packages>
+# The following is to provide the package names fom Ubuntu repos
 Provides: libzend-framework-php
 # Replaces: <comma-separated list of packages>
 # Architecture: all
@@ -22,9 +23,12 @@ Extra-Files: gpl-3.0.txt,Version-history
 # Files: <pair of space-separated paths; First is file to include, second is destination>
 #  <more pairs, if there's more than one file to include. Notice the starting space>
 Description: Dummy package to alleviate Ubuntu package names 
- This is a Debian specific dependency package to alleviate negligence on the part of LOD2 maintainers to cater for Debian Package names and dependenciec, and not just Ubuntu package names.
+ This is a Debian specific dependency package to cater for Debian Package names and dependencies, and not just Ubuntu package names, and thus enabling installation in Debian.
  .
  If this approach works, I will file a bug. and a pull-request at GtiHub.
  .
- I have now made this work in Debian Squeeze. Only manual config issue is adding a correct AddHandler line to the apache config. This should be done upstream by including the required line in the "/etc/apache2/conf.d/ontowiki" configuration file as foolows:
- AddHandler application/x-httpd-php5 .php .phtml
+ This now works in Debian Squeeze. Only manual config issue is adding a correct handling of PHP5 in the apache config. This should be done upstream by including the required lines in the "/etc/apache2/conf.d/ontowiki" configuration file.
+ See the file apache2.conf for details.
+ Iin adition, the Apache2 module 'mod_actions' needs to be made available if using mpm-worker or mpm-event. This has to be dealt with in the config scripts somewhere.
+ .
+ There might well be other ways of getting these tings to work. There are ways of specifying distribution specific dependencies directly in the packages. This is probably better than this approach. 

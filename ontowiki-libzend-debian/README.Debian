@@ -47,11 +47,24 @@ I have to look into that.
 * Apache *
 # 1
 On my fresh Debian Squeeze system OntoWiki drags in Apache2. 
-Apache2 on Squeeze does not install PHP5 module by default. Thus the equivs package should have a
-Depends: libapache2-mod-php5
-Also, the PHP5 module is not enabled by default in Squeeze. Thus I added
-AddHandler application/x-httpd-php5 .php .phtml
-to "/etc/apache2/conf.d/ontowiki" configuration file. This AddHandler line should probalbly be included in the upstream "ontowiki" packages.
+Apache2 on Squeeze does not install and configure PHP5 by default. Thus the equivs package should have a
+Depends: apache2-mpm-worker | apache2-mpm-event | libapache2-mod-php5
+Also, the PHP5 module is not enabled by default in Squeeze. Thus I added the following lines to the "/etc/apache2/conf.d/ontowiki" configuration file, as reflected in the apache.conf file in this directory.
+
+    # Enable interpretation of PHP5 by the server
+    # Configuration tips from
+    # http://www.beardy.se/exchanging-apache2-mpm-prefork-for-apache2-mpm-worker-and-using-php5-cgi-on-debian-to-improve-performance
+    ## Configure the correct module to handle PHP
+    <IfModule mod_actions.c>
+        Action application/x-httpd-php /cgi-bin/php5
+    </IfModule>
+    ## Else we need to add handler for PHP5
+    <IfModule mod_php5>
+        AddHandler application/x-httpd-php5 .php .phtml
+    </IfModule>
+ 
+The 'mod_actions' module should also be enabled in the Apache2 config ( execute 'a2enmod actions' as root ) if using mpm-worker or mpm-event.
+These changes should probalbly be included in the upstream "ontowiki" packages.
 
 # 2
 Apache2 complains on first startup:
@@ -61,8 +74,8 @@ The Apache error log may have more information.
  failed!
 invoke-rc.d: initscript apache2, action "start" failed
 
-It is not nice to litter the Apache2 log file or apt log if it is not necessary. 
-The solution to this would be to move the inclusion of "/etc/apache2/conf.d/ontowiki" into the postinst-configure of ontowiki-common.
+It is nice to avoid littering the Apache2 log file or apt log if it is not necessary. 
+One solution to this could be to move the inclusion of "/etc/apache2/conf.d/ontowiki" in the Aapache2 setup into the postinst-configure of ontowiki-common.
 
 * owcli *
 # 1
@@ -101,9 +114,15 @@ pear/Console_Color2
 
 v.1.02
 Also needs
-depends: libapache2-mod-php5
+depends:  libapache2-mod-php5
 and added 
 AddHandler application/x-httpd-php5 .php .phtml
 in /etc/apache2/conf.d/ontowiki
 Quite unsure about how to achieve the latter automagically
+;)Frode
+
+v1.06
+Works fine with MPM-worker, actions, and cgi handling of PHP
+depends:  apache2-mpm-worker | apache2-mpm-event | libapache2-mod-php5
+MPM-worker on Debian needs mod_actions and a proper cgi setup for PHP handling
 ;)Frode
