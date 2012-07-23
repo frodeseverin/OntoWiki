@@ -1,0 +1,8 @@
+After issuing 'make deploy' I had to move Zend out of the way, as my PHP install already comes with Zend enabled.
+
+I kept getting errors of the form:
+[Thu Jul 19 12:07:46 2012] [error] [client 127.0.1.1] PHP Fatal error:  Cannot redeclare class Zend_Loader in /usr/share/OntoWiki/libraries/Zend/Loader.php on line 31
+
+There should be some way of checking for coorect version of Zend, and using that.
+
+;)Frode
