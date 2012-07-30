@@ -63,16 +63,14 @@ help-cs:
 
 # top level target
 
-deploy: submodules deployment
-
-deployment: directories clean zend
+deploy: directories clean zend
 	@echo 
 	rm -rf libraries/RDFauthor
-#	@echo 'Cloning RDFauthor into libraries/RDFauthor ...'
-#	git clone git://github.com/AKSW/RDFauthor.git libraries/RDFauthor
+	@echo 'Cloning RDFauthor into libraries/RDFauthor ...'
+	git clone git://github.com/AKSW/RDFauthor.git libraries/RDFauthor
 	rm -rf libraries/Erfurt
-#	@echo 'Cloning Erfurt into libraries/Erfurt ...'
-#	git clone git://github.com/AKSW/Erfurt.git libraries/Erfurt
+	@echo 'Cloning Erfurt into libraries/Erfurt ...'
+	git clone git://github.com/AKSW/Erfurt.git libraries/Erfurt
 
 
 install: directories libraries
