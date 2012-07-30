@@ -7,7 +7,6 @@ default:
 	@echo "                                  (use this for server installations)"
 	@echo ""
 	@echo "      make install .............. Install OntoWiki for developer"
-	@echo "                                  (you will need github access and ssh for this)"
 	@echo ""
 	@echo "      make help ................. Show more (developer related) make targets"
 	@echo ""
@@ -21,7 +20,9 @@ help:
 	@echo "     zend ....................... Download and install Zend under libraries"
 	@echo "     libraries .................. 'git clone' all subrepos - in case submodules do not work"
 	@echo "     erfurt ..................... Clone under libraries"
+	@echo "                                  (you will need github access and ssh for this)"
 	@echo "     rdfauthor .................. Clone under libraries"
+	@echo "                                  (you will need github access and ssh for this)"
 	@echo "     pull ....................... 'git pull' for all repos"
 	@echo "     status ..................... 'git status' for all repos"
 	@echo "     branch-check ............... 'git rev-parse' for all repos"
@@ -62,13 +63,16 @@ help-cs:
 
 # top level target
 
-deploy: directories clean zend
+deploy: submodules deployment
+
+deployment: directories clean zend
+	@echo 
 	rm -rf libraries/RDFauthor
-	@echo 'Cloning RDFauthor into libraries/RDFauthor ...'
-	git clone git://github.com/AKSW/RDFauthor.git libraries/RDFauthor
+#	@echo 'Cloning RDFauthor into libraries/RDFauthor ...'
+#	git clone git://github.com/AKSW/RDFauthor.git libraries/RDFauthor
 	rm -rf libraries/Erfurt
-	@echo 'Cloning Erfurt into libraries/Erfurt ...'
-	git clone git://github.com/AKSW/Erfurt.git libraries/Erfurt
+#	@echo 'Cloning Erfurt into libraries/Erfurt ...'
+#	git clone git://github.com/AKSW/Erfurt.git libraries/Erfurt
 
 
 install: directories libraries
