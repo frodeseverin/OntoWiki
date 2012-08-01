@@ -43,7 +43,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
         // require Erfurt
         $this->bootstrap('Erfurt');
-        //$erfurt = $this->getResource('Erfurt');
 
         // require Session
         $this->bootstrap('Session');
@@ -112,14 +111,27 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         }
 
         // load user application configuration files
+        $tryDistConfig = false;
         try {
             $privateConfig = new Zend_Config_Ini(ONTOWIKI_ROOT . 'config.ini', 'private', true);
             $config->merge($privateConfig);
         } catch (Zend_Config_Exception $e) {
-            $message = '<p>OntoWiki can not find a proper configuration.</p>' . PHP_EOL .
-                '<p>Maybe you have to copy and modify the distributed <code>config.ini-dist</code> file?</p>'. PHP_EOL .
-                '<details><summary>Error Details</summary>' . $e->getMessage() . '</details>';
-            throw new OntoWiki_Exception($message);
+            $tryDistConfig = true;
+        }
+        
+        if ($tryDistConfig === true) {
+            try {
+                $privateConfig = new Zend_Config_Ini(ONTOWIKI_ROOT . 'config.ini.dist', 'private', true);
+                $config->merge($privateConfig);
+            } catch (Zend_Config_Exception $e) {
+                $message = '<p>OntoWiki can not find a proper configuration.</p>' . PHP_EOL 
+                         . '<p>Maybe you have to copy and modify the distributed ' 
+                         . '<code>config.ini.dist</code> file?</p>'. PHP_EOL 
+                         . '<details><summary>Error Details</summary>' 
+                         . $e->getMessage() . '</details>';
+                         
+                throw new OntoWiki_Exception($message);
+            }
         }
 
         // normalize path names
@@ -137,34 +149,45 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $config->cache->path     = rtrim($config->cache->path, '/\\') . '/';
         $config->log->path       = rtrim($config->log->path, '/\\') . '/';
         
+        // support absolute path
+        $matches = array();
+        if (!(preg_match('/^(\w:[\/|\\\\]|\/)/', $config->cache->path, $matches) === 1)) {
+            $config->cache->path = ONTOWIKI_ROOT . $config->cache->path;
+        }
+        
         //force caching
         if(!is_writable($config->cache->path)){
             throw new OntoWiki_Exception('<p>OntoWiki can not write to the "cache" folder.</p>' . PHP_EOL .
                 '<p>Maybe you have to create the folder or allow write access for the webserver user?</p>');
         }
 
-        // support absolute path
-        $matches = array();
-        if (!(preg_match('/^(\w:[\/|\\\\]|\/)/', $config->cache->path, $matches) === 1)) {
-            $config->cache->path = ONTOWIKI_ROOT . $config->cache->path;
-        }
-
         // set path variables
         $rewriteBase = substr($_SERVER['PHP_SELF'], 0, strpos($_SERVER['PHP_SELF'], BOOTSTRAP_FILE));
         $protocol    = (isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) == 'on') ? 'https' : 'http';
-        $port        = (isset($_SERVER['SERVER_PORT']) &&
-            $_SERVER['SERVER_PORT'] != '80' &&
-            $_SERVER['SERVER_PORT'] != '443'
-        )
-             ? (':' . $_SERVER['SERVER_PORT'])
-             : '';
-        $urlBase     = sprintf(
-            '%s://%s%s%s',
-            $protocol,
-            isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : 'localhost',
-            $port,
-            $rewriteBase
-        );
+
+        if (isset($_SERVER['SERVER_PORT'])
+            && $_SERVER['SERVER_PORT'] != '80' && $_SERVER['SERVER_PORT'] != '443') {
+            $port = ':' . $_SERVER['SERVER_PORT'];
+        } else {
+            $port = '';
+        }
+
+        if (isset($_SERVER['SERVER_NAME']) && strpos($_SERVER['SERVER_NAME'], ':') !== false) {
+            // IPv6
+            $serverName = '[' . $_SERVER['SERVER_NAME'] . ']';
+        } else if (isset($_SERVER['SERVER_NAME'])) {
+            // IPv4 or host name
+            $serverName = $_SERVER['SERVER_NAME'];
+        } else {
+            // localhost
+            $serverName = 'localhost';
+        }
+
+        $urlBase = sprintf('%s://%s%s%s',
+                           $protocol,
+                           $serverName,
+                           $port,
+                           $rewriteBase);
 
         // construct URL variables
         $config->host           = parse_url($urlBase, PHP_URL_HOST);

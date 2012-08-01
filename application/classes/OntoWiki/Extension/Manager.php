@@ -708,7 +708,8 @@ class OntoWiki_Extension_Manager
     protected function _addWrapper($filename, $wrapperPath, $config)
     {
         $owApp = OntoWiki::getInstance();
-        $wrapperManager = $owApp->erfurt->getWrapperManager(false);
+        
+        $wrapperManager = new Erfurt_Wrapper_Manager();
         $wrapperManager->addWrapperExternally(
             strtolower(substr($filename, 0, strlen($filename) - strlen(self::WRAPPER_FILE_POSTFIX))),
             $wrapperPath,
@@ -771,10 +772,16 @@ class OntoWiki_Extension_Manager
             $owconfigNS.'authorLabel' => 'author',
             EF_RDFS_LABEL => 'title'
         );
-        $scp = $owconfigNS.'config'; //sub config property
-        $mp = $owconfigNS.'hasModule'; //module property
-        $base = dirname($path).DIRECTORY_SEPARATOR;
+
+        $scp = $owconfigNS . 'config'; //sub config property
+        $mp = $owconfigNS . 'hasModule'; //module property
+        $base = $parser->getBaseUri();
         $extensionUri = $memModel->getValue($base, 'http://xmlns.com/foaf/0.1/primaryTopic');
+
+        if ($extensionUri == null) {
+            throw new Exception('Extension DOAP config for '.$name.' needs triple (@base, foaf:primaryTopic, <extensionUri>). Not present. Base was: "' . $base . '". In doap file: "' . $path . '".' );
+        }
+
         $privateNS = $memModel->getValue($extensionUri, $owconfigNS.'privateNamespace');
 
         $modules = array();
