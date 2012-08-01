@@ -1,7 +1,7 @@
 ZENDVERSION=1.11.5
 
 default:
-	@echo "Typical targets your could want to reach:"
+	@echo "Typical targets you could want to reach:"
 	@echo ""
 	@echo "-->   make deploy ............... Install OntoWiki <-- in doubt, use this"
 	@echo "                                  (use this for server installations)"
@@ -24,6 +24,9 @@ help:
 	@echo "     rdfauthor .................. Clone under libraries for development"
 	@echo "                                  (you will need ssh github access for the module for this)"
 	@echo "     pull ....................... 'git pull' for all repos"
+	@echo "                                  Keep in mind that you might have to incorporate changes"
+	@echo "                                  from upstream using some variant of 'git pull  upstream develop"
+	@echo "                                  if you are working on a fork."
 	@echo "     status ..................... 'git status' for all repos"
 	@echo "     branch-check ............... 'git rev-parse' for all repos"
 	@echo "     clean ...................... Deletes all log and cache files"
